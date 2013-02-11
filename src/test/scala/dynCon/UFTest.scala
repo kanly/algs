@@ -3,11 +3,14 @@ package dynCon
 import org.scalatest.FlatSpec
 
 
-class UFTest extends FlatSpec with UFBehaviors{
+class UFTest extends FlatSpec with UFBehaviors {
 
   def quickFind = new QuickFind(10)
 
-   "Quick find " should behave like _10SizedUF(quickFind)
+  def quickUnion = new QuickUnion(10)
+
+  "Quick find " should behave like _10SizedUF(quickFind)
+  "Quick union " should behave like _10SizedUF(quickUnion)
 }
 
 trait UFBehaviors {
@@ -21,9 +24,9 @@ trait UFBehaviors {
     }
 
     it should "find a connection" in {
-      val linkedUf = uf.union(0,3).union(3,8).union(8,2).union(2,5)
-      assert(linkedUf.connected(5,3))
-      assert(linkedUf.connected(3,5))
+      val linkedUf = uf.union(0, 3).union(3, 8).union(8, 2).union(2, 5)
+      assert(linkedUf.connected(5, 3))
+      assert(linkedUf.connected(3, 5))
     }
   }
 }
