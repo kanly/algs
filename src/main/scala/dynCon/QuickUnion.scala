@@ -22,14 +22,20 @@ class QuickUnion(elements: List[Int]) extends UF {
 class WeightedQuickUnion(elements: List[Int], weights: List[Int]) extends QuickUnion(elements) {
   def this(n: Int) = {
     this(0 to n - 1 toList, List.fill(n)(1))
+
   }
 
-  override def union(p: Int, q: Int): UF =
-    if (weights(p) > weights(q))
-      new WeightedQuickUnion(elements.updated(rootFor(q), rootFor(p)), weights.updated(q, weights(q) + 1))
+  override def union(p: Int, q: Int): UF ={
+    val pRoot=rootFor(p)
+    val qRoot=rootFor(q)
+    if (weights(pRoot) >= weights(qRoot))
+      new WeightedQuickUnion(elements.updated(qRoot, pRoot), weights.updated(pRoot, (weights(qRoot) + weights(pRoot))))
     else
-      new WeightedQuickUnion(elements.updated(rootFor(p), rootFor(q)), weights.updated(p, weights(p) + 1))
+      new WeightedQuickUnion(elements.updated(pRoot, qRoot), weights.updated(qRoot, (weights(pRoot) + weights(qRoot))))
+  }
 
+  def w =weights
+  def el = elements
 }
 
 class PathCompressionQuickUnion(elements: Array[Int]) extends UF {
@@ -64,7 +70,7 @@ class WeightedPathCompressionQuickUnion(elements: Array[Int], weights: Array[Int
   }
 
   def union(p: Int, q: Int): UF = {
-    if (weights(p) > weights(q)) {
+    if (weights(p) >= weights(q)) {
       elements.update(rootFor(q), rootFor(p))
       weights.update(q, weights(q) + 1)
     } else {
