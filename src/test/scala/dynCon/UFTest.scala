@@ -19,7 +19,6 @@ class UFTest extends FlatSpec with UFBehaviors {
   "Quick union " should behave like _10SizedUF(quickUnion)
   "Weighted quick union " should behave like _10SizedUF(weightedQuickUnion)
   it should "be weighted " in {
-    println("**********")
     val string = weightedQuickUnion.union(9,1).union(9,7).union(4,6).union(9,5).union(1,8).union(0,3).union(5,2).union(0,4).union(6,1).toString
     assert(string === "9;9;9;0;0;9;4;9;9;9")
   }
