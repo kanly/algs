@@ -70,12 +70,14 @@ class WeightedPathCompressionQuickUnion(elements: Array[Int], weights: Array[Int
   }
 
   def union(p: Int, q: Int): UF = {
-    if (weights(p) >= weights(q)) {
-      elements.update(rootFor(q), rootFor(p))
-      weights.update(q, weights(q) + 1)
+    val pRoot=rootFor(p)
+    val qRoot=rootFor(q)
+    if (weights(pRoot) >= weights(q)) {
+      elements.update(qRoot, pRoot)
+      weights.update(pRoot, weights(qRoot) + weights(pRoot))
     } else {
-      elements.update(rootFor(p), rootFor(q))
-      weights.update(p, weights(p) + 1)
+      elements.update(pRoot, qRoot)
+      weights.update(qRoot, weights(pRoot) + weights(qRoot))
     }
     this
   }
