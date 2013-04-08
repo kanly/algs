@@ -1,6 +1,6 @@
 package sort
 
-abstract class Sorter[A](comparator: (A, A) => Comparison)(elems: List[A]) {
+abstract class Sorter[A](comparator: (A, A) => CompareResult)(elems: List[A]) {
   val elements = elems
 
   def sort(): Sorter[A]
@@ -9,10 +9,7 @@ abstract class Sorter[A](comparator: (A, A) => Comparison)(elems: List[A]) {
 
   def list(): List[A] = elems
 
-  def firstIsLess(first: A, second: A) = {
-    println("comparing " + first, second)
-    comparator(first, second) == Smaller
-  }
+  def firstIsLess(first: A, second: A) = comparator(first, second) == Smaller
 
   def swap(first: Int, second: Int): Sorter[A] = {
     val firstValue = elements(first)
@@ -35,10 +32,10 @@ object Sorter {
 
 }
 
-sealed abstract class Comparison
+sealed abstract class CompareResult
 
-case object Bigger extends Comparison
+case object Bigger extends CompareResult
 
-case object Smaller extends Comparison
+case object Smaller extends CompareResult
 
-case object Equal extends Comparison
+case object Equal extends CompareResult
