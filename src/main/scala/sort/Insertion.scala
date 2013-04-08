@@ -1,6 +1,6 @@
 package sort
 
 
-class Insertion[A] extends Sort[A]{
-  def sort(elements: List[A])(comparator: (A, A) => Comparison): List[A] = ???
+class Insertion[A](comparator: (A, A) => Comparison) extends Sorter[A]{
+  def sort(elements: Array[A]): Array[A] = ???
 }
