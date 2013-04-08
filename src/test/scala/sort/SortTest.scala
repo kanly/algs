@@ -3,13 +3,15 @@ package sort
 import org.scalatest.FlatSpec
 
 
-class SortTest {
+class SortTest extends FlatSpec with SortBehaviors  {
+  def insertion=new Insertion[Int]
 
+  "Insertion " should behave like _plainSorter(insertion)
 }
 
 trait SortBehaviors {
   this: FlatSpec =>
-  def plainSorter(sorter: Sort[Int]) {
+  def _plainSorter(sorter: Sort[Int]) {
     def sorterFunction(first:Int,second:Int) = (first-second) match {
       case _ > 0 => Bigger
       case _ < 0 => Smaller
