@@ -10,8 +10,10 @@ class SorterTest extends FlatSpec with SorterBehaviors {
     else Equal
 
   def intInsertion(elems: List[Int]) = new Insertion[Int](sorterFunction)(elems)
+  def intSelection(elems: List[Int]) = new Selection[Int](sorterFunction)(elems)
 
   "Insertion sort " should behave like _plainSorter(intInsertion)
+  "Selection sort " should behave like _plainSorter(intSelection)
 }
 
 trait SorterBehaviors {
@@ -20,6 +22,9 @@ trait SorterBehaviors {
   def _plainSorter(sorterGenerator: List[Int] => Sorter[Int]) {
     it should "sort correctly (2,1,4,5,6,1,6,3,1)" in {
       val sorted = sorterGenerator(List(2, 1, 4, 5, 6, 1, 6, 3, 1)) sort()
+
+      println(sorted.list().mkString("; "))
+
       assert(sorted isSorted())
       assert(List(1, 1, 1, 2, 3, 4, 5, 6, 6) == sorted.list())
     }
