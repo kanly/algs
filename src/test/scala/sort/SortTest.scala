@@ -18,7 +18,7 @@ trait SortBehaviors {
       else Equal
 
     it should "sort correctly (2,1,4,5,6,1,6,3,1)" in {
-      val sorted = sorter.sort(List(2, 1, 4, 5, 6, 1, 6, 3, 1))
+      val sorted = sorter.sort(List(2, 1, 4, 5, 6, 1, 6, 3, 1))(sorterFunction)
       assert(sorted == List(1, 1, 1, 2, 3, 4, 5, 6, 6))
     }
   }
